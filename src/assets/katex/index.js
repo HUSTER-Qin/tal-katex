@@ -12,10 +12,18 @@ function avoidXSS(val) {
 }
 
 function decode(el, binding, vnode, opt) {
-    var txt = binding.value
+	var txt = binding.value
+	console.log(opt)
+	var _opts = opt || {
+		delimiters: [{
+			left: "$$",
+			right: "$$",
+			display: false
+		}]
+	}
     if (binding.value) {
         txt = avoidXSS(txt)
-        txt = renderMathInElement(txt, opt)
+        txt = renderMathInElement(txt, _opts)
         vnode.elm.innerHTML = txt
     } else {
         vnode.elm.innerHTML = txt
